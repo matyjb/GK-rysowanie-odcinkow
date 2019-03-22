@@ -16,8 +16,11 @@ namespace GK_rysowanie_odcinków
 
         public void Draw(Graphics g)
         {
-            float m = (P2.Y - P1.Y) / (P2.X - P1.X);
-            if(Math.Abs(m) > 1)
+            float m;
+            if (P2.X - P1.X != 0) m = (P2.Y - P1.Y) / (float)(P2.X - P1.X);
+            else m = P2.Y - P1.Y;
+
+            if (Math.Abs(m) >= 1)
             {
                 Vec2i start = P1.Y < P2.Y ? P1 : P2;
                 Vec2i end = P1.Y >= P2.Y ? P1 : P2;
@@ -25,8 +28,8 @@ namespace GK_rysowanie_odcinków
                 float x = start.X;
                 for (int y = start.Y; y <= end.Y; y++)
                 {
-                    g.FillRectangle(Brushes.Black, y, (int)Math.Round(x), 1, 1); //SetPixel
-                    x += 1/m;
+                    g.FillRectangle(Brushes.Black, (int)Math.Round(x), y, 1, 1); //SetPixel
+                    x += (P2.X - P1.X != 0) ? 1/m : 0;
                 }
             }
             else
