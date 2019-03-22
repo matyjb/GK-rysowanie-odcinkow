@@ -32,15 +32,15 @@ namespace GK_rysowanie_odcinków
             Rotate(angle, new Vec2<T>((dynamic)0, (dynamic)0));
         }
 
-        public void Scale(Vec2<T> by, Vec2<T> origin)
+        public void Scale(Vec2<double> by, Vec2<T> origin)
         {
             Move(-origin);
-            X = (dynamic)X * (dynamic)origin.X;
-            Y = (dynamic)Y * (dynamic)origin.Y;
+            X = (dynamic)((dynamic)X * (dynamic)by.X);
+            Y = (dynamic)((dynamic)Y * (dynamic)by.Y);
             Move(origin);
         }
 
-        public void Scale(Vec2<T> by)
+        public void Scale(Vec2<double> by)
         {
             Scale(by, new Vec2<T>((dynamic)0, (dynamic)0));
         }
