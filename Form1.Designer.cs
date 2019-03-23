@@ -52,6 +52,7 @@
             this.nAngle = new System.Windows.Forms.NumericUpDown();
             this.gBoxMethod = new System.Windows.Forms.GroupBox();
             this.rPrzyrostowy = new System.Windows.Forms.RadioButton();
+            this.bClearCanvas = new System.Windows.Forms.Button();
             this.gBoxMove.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nY)).BeginInit();
@@ -65,11 +66,15 @@
             // 
             // canvas
             // 
+            this.canvas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.canvas.Location = new System.Drawing.Point(13, 13);
             this.canvas.Name = "canvas";
-            this.canvas.Size = new System.Drawing.Size(555, 425);
+            this.canvas.Size = new System.Drawing.Size(555, 470);
             this.canvas.TabIndex = 0;
             this.canvas.Paint += new System.Windows.Forms.PaintEventHandler(this.canvas_Paint);
+            this.canvas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseClick);
             // 
             // bUp
             // 
@@ -143,6 +148,11 @@
             this.nX.Size = new System.Drawing.Size(48, 20);
             this.nX.TabIndex = 6;
             this.nX.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nX.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // nY
             // 
@@ -156,6 +166,11 @@
             this.nY.Size = new System.Drawing.Size(48, 20);
             this.nY.TabIndex = 7;
             this.nY.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nY.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // bUpRight
             // 
@@ -199,12 +214,13 @@
             // 
             // gBoxScale
             // 
+            this.gBoxScale.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.gBoxScale.Controls.Add(this.bScale);
             this.gBoxScale.Controls.Add(this.lX);
             this.gBoxScale.Controls.Add(this.nScaleX);
             this.gBoxScale.Controls.Add(this.lY);
             this.gBoxScale.Controls.Add(this.nScaleY);
-            this.gBoxScale.Location = new System.Drawing.Point(588, 218);
+            this.gBoxScale.Location = new System.Drawing.Point(588, 217);
             this.gBoxScale.Name = "gBoxScale";
             this.gBoxScale.Size = new System.Drawing.Size(200, 85);
             this.gBoxScale.TabIndex = 3;
@@ -287,10 +303,11 @@
             // 
             // gBoxRotation
             // 
+            this.gBoxRotation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.gBoxRotation.Controls.Add(this.bRotate);
             this.gBoxRotation.Controls.Add(this.lFi);
             this.gBoxRotation.Controls.Add(this.nAngle);
-            this.gBoxRotation.Location = new System.Drawing.Point(588, 309);
+            this.gBoxRotation.Location = new System.Drawing.Point(588, 308);
             this.gBoxRotation.Name = "gBoxRotation";
             this.gBoxRotation.Size = new System.Drawing.Size(200, 85);
             this.gBoxRotation.TabIndex = 5;
@@ -336,8 +353,9 @@
             // 
             // gBoxMethod
             // 
+            this.gBoxMethod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.gBoxMethod.Controls.Add(this.rPrzyrostowy);
-            this.gBoxMethod.Location = new System.Drawing.Point(588, 401);
+            this.gBoxMethod.Location = new System.Drawing.Point(588, 400);
             this.gBoxMethod.Name = "gBoxMethod";
             this.gBoxMethod.Size = new System.Drawing.Size(200, 37);
             this.gBoxMethod.TabIndex = 6;
@@ -356,11 +374,22 @@
             this.rPrzyrostowy.Text = "przyrostowy";
             this.rPrzyrostowy.UseVisualStyleBackColor = true;
             // 
+            // bClearCanvas
+            // 
+            this.bClearCanvas.Location = new System.Drawing.Point(594, 444);
+            this.bClearCanvas.Name = "bClearCanvas";
+            this.bClearCanvas.Size = new System.Drawing.Size(188, 39);
+            this.bClearCanvas.TabIndex = 7;
+            this.bClearCanvas.Text = "Wyczyść płutno";
+            this.bClearCanvas.UseVisualStyleBackColor = true;
+            this.bClearCanvas.Click += new System.EventHandler(this.bClearCanvas_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 495);
+            this.Controls.Add(this.bClearCanvas);
             this.Controls.Add(this.gBoxMethod);
             this.Controls.Add(this.gBoxRotation);
             this.Controls.Add(this.gBoxScale);
@@ -410,6 +439,7 @@
         private System.Windows.Forms.NumericUpDown nAngle;
         private System.Windows.Forms.GroupBox gBoxMethod;
         private System.Windows.Forms.RadioButton rPrzyrostowy;
+        private System.Windows.Forms.Button bClearCanvas;
     }
 }
 
