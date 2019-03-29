@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GK_rysowanie_odcinków
 {
     public partial class Form1 : Form
     {
+        private Options options = Options.Instance;
         private List<Drawable> drawables;
         private OriginPointer origin;
 
@@ -145,6 +142,18 @@ namespace GK_rysowanie_odcinków
         {
             drawables.Clear();
             drawables.Add(origin);
+            canvas.Refresh();
+        }
+
+        private void rPrzyrostowy_CheckedChanged(object sender, EventArgs e)
+        {
+            options.LineDrawingAlgorithm = LineDrawingAlgorithms.Przyrostowy;
+            canvas.Refresh();
+        }
+
+        private void rWu_CheckedChanged(object sender, EventArgs e)
+        {
+            options.LineDrawingAlgorithm = LineDrawingAlgorithms.Wu;
             canvas.Refresh();
         }
     }

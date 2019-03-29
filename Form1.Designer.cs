@@ -31,21 +31,21 @@
             this.canvas = new System.Windows.Forms.Panel();
             this.bUp = new System.Windows.Forms.Button();
             this.gBoxMove = new System.Windows.Forms.GroupBox();
-            this.bRight = new System.Windows.Forms.Button();
-            this.bLeft = new System.Windows.Forms.Button();
-            this.bDown = new System.Windows.Forms.Button();
-            this.nX = new System.Windows.Forms.NumericUpDown();
-            this.nY = new System.Windows.Forms.NumericUpDown();
-            this.bUpRight = new System.Windows.Forms.Button();
-            this.bDownRight = new System.Windows.Forms.Button();
-            this.bDownLeft = new System.Windows.Forms.Button();
             this.bUpLeft = new System.Windows.Forms.Button();
+            this.bDownLeft = new System.Windows.Forms.Button();
+            this.bDownRight = new System.Windows.Forms.Button();
+            this.bUpRight = new System.Windows.Forms.Button();
+            this.nY = new System.Windows.Forms.NumericUpDown();
+            this.nX = new System.Windows.Forms.NumericUpDown();
+            this.bDown = new System.Windows.Forms.Button();
+            this.bLeft = new System.Windows.Forms.Button();
+            this.bRight = new System.Windows.Forms.Button();
             this.gBoxScale = new System.Windows.Forms.GroupBox();
-            this.nScaleY = new System.Windows.Forms.NumericUpDown();
-            this.lY = new System.Windows.Forms.Label();
+            this.bScale = new System.Windows.Forms.Button();
             this.lX = new System.Windows.Forms.Label();
             this.nScaleX = new System.Windows.Forms.NumericUpDown();
-            this.bScale = new System.Windows.Forms.Button();
+            this.lY = new System.Windows.Forms.Label();
+            this.nScaleY = new System.Windows.Forms.NumericUpDown();
             this.gBoxRotation = new System.Windows.Forms.GroupBox();
             this.bRotate = new System.Windows.Forms.Button();
             this.lFi = new System.Windows.Forms.Label();
@@ -53,12 +53,13 @@
             this.gBoxMethod = new System.Windows.Forms.GroupBox();
             this.rPrzyrostowy = new System.Windows.Forms.RadioButton();
             this.bClearCanvas = new System.Windows.Forms.Button();
+            this.rWu = new System.Windows.Forms.RadioButton();
             this.gBoxMove.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nX)).BeginInit();
             this.gBoxScale.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nScaleY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nScaleX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nScaleY)).BeginInit();
             this.gBoxRotation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nAngle)).BeginInit();
             this.gBoxMethod.SuspendLayout();
@@ -106,53 +107,45 @@
             this.gBoxMove.TabStop = false;
             this.gBoxMove.Text = "Przemieszczanie";
             // 
-            // bRight
+            // bUpLeft
             // 
-            this.bRight.Location = new System.Drawing.Point(131, 75);
-            this.bRight.Name = "bRight";
-            this.bRight.Size = new System.Drawing.Size(50, 50);
-            this.bRight.TabIndex = 3;
-            this.bRight.Text = "right";
-            this.bRight.UseVisualStyleBackColor = true;
-            this.bRight.Click += new System.EventHandler(this.bRight_Click);
+            this.bUpLeft.Location = new System.Drawing.Point(29, 28);
+            this.bUpLeft.Name = "bUpLeft";
+            this.bUpLeft.Size = new System.Drawing.Size(41, 41);
+            this.bUpLeft.TabIndex = 11;
+            this.bUpLeft.Text = "up left";
+            this.bUpLeft.UseVisualStyleBackColor = true;
+            this.bUpLeft.Click += new System.EventHandler(this.bUpLeft_Click);
             // 
-            // bLeft
+            // bDownLeft
             // 
-            this.bLeft.Location = new System.Drawing.Point(20, 75);
-            this.bLeft.Name = "bLeft";
-            this.bLeft.Size = new System.Drawing.Size(50, 50);
-            this.bLeft.TabIndex = 4;
-            this.bLeft.Text = "left";
-            this.bLeft.UseVisualStyleBackColor = true;
-            this.bLeft.Click += new System.EventHandler(this.bLeft_Click);
+            this.bDownLeft.Location = new System.Drawing.Point(29, 131);
+            this.bDownLeft.Name = "bDownLeft";
+            this.bDownLeft.Size = new System.Drawing.Size(41, 41);
+            this.bDownLeft.TabIndex = 10;
+            this.bDownLeft.Text = "down left";
+            this.bDownLeft.UseVisualStyleBackColor = true;
+            this.bDownLeft.Click += new System.EventHandler(this.bDownLeft_Click);
             // 
-            // bDown
+            // bDownRight
             // 
-            this.bDown.Location = new System.Drawing.Point(76, 131);
-            this.bDown.Name = "bDown";
-            this.bDown.Size = new System.Drawing.Size(50, 50);
-            this.bDown.TabIndex = 5;
-            this.bDown.Text = "down";
-            this.bDown.UseVisualStyleBackColor = true;
-            this.bDown.Click += new System.EventHandler(this.bDown_Click);
+            this.bDownRight.Location = new System.Drawing.Point(131, 131);
+            this.bDownRight.Name = "bDownRight";
+            this.bDownRight.Size = new System.Drawing.Size(41, 41);
+            this.bDownRight.TabIndex = 9;
+            this.bDownRight.Text = "down right";
+            this.bDownRight.UseVisualStyleBackColor = true;
+            this.bDownRight.Click += new System.EventHandler(this.bDownRight_Click);
             // 
-            // nX
+            // bUpRight
             // 
-            this.nX.Location = new System.Drawing.Point(77, 76);
-            this.nX.Maximum = new decimal(new int[] {
-            300,
-            0,
-            0,
-            0});
-            this.nX.Name = "nX";
-            this.nX.Size = new System.Drawing.Size(48, 20);
-            this.nX.TabIndex = 6;
-            this.nX.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.nX.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.bUpRight.Location = new System.Drawing.Point(131, 28);
+            this.bUpRight.Name = "bUpRight";
+            this.bUpRight.Size = new System.Drawing.Size(41, 41);
+            this.bUpRight.TabIndex = 8;
+            this.bUpRight.Text = "up right";
+            this.bUpRight.UseVisualStyleBackColor = true;
+            this.bUpRight.Click += new System.EventHandler(this.bUpRight_Click);
             // 
             // nY
             // 
@@ -172,45 +165,53 @@
             0,
             0});
             // 
-            // bUpRight
+            // nX
             // 
-            this.bUpRight.Location = new System.Drawing.Point(131, 28);
-            this.bUpRight.Name = "bUpRight";
-            this.bUpRight.Size = new System.Drawing.Size(41, 41);
-            this.bUpRight.TabIndex = 8;
-            this.bUpRight.Text = "up right";
-            this.bUpRight.UseVisualStyleBackColor = true;
-            this.bUpRight.Click += new System.EventHandler(this.bUpRight_Click);
+            this.nX.Location = new System.Drawing.Point(77, 76);
+            this.nX.Maximum = new decimal(new int[] {
+            300,
+            0,
+            0,
+            0});
+            this.nX.Name = "nX";
+            this.nX.Size = new System.Drawing.Size(48, 20);
+            this.nX.TabIndex = 6;
+            this.nX.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nX.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
-            // bDownRight
+            // bDown
             // 
-            this.bDownRight.Location = new System.Drawing.Point(131, 131);
-            this.bDownRight.Name = "bDownRight";
-            this.bDownRight.Size = new System.Drawing.Size(41, 41);
-            this.bDownRight.TabIndex = 9;
-            this.bDownRight.Text = "down right";
-            this.bDownRight.UseVisualStyleBackColor = true;
-            this.bDownRight.Click += new System.EventHandler(this.bDownRight_Click);
+            this.bDown.Location = new System.Drawing.Point(76, 131);
+            this.bDown.Name = "bDown";
+            this.bDown.Size = new System.Drawing.Size(50, 50);
+            this.bDown.TabIndex = 5;
+            this.bDown.Text = "down";
+            this.bDown.UseVisualStyleBackColor = true;
+            this.bDown.Click += new System.EventHandler(this.bDown_Click);
             // 
-            // bDownLeft
+            // bLeft
             // 
-            this.bDownLeft.Location = new System.Drawing.Point(29, 131);
-            this.bDownLeft.Name = "bDownLeft";
-            this.bDownLeft.Size = new System.Drawing.Size(41, 41);
-            this.bDownLeft.TabIndex = 10;
-            this.bDownLeft.Text = "down left";
-            this.bDownLeft.UseVisualStyleBackColor = true;
-            this.bDownLeft.Click += new System.EventHandler(this.bDownLeft_Click);
+            this.bLeft.Location = new System.Drawing.Point(20, 75);
+            this.bLeft.Name = "bLeft";
+            this.bLeft.Size = new System.Drawing.Size(50, 50);
+            this.bLeft.TabIndex = 4;
+            this.bLeft.Text = "left";
+            this.bLeft.UseVisualStyleBackColor = true;
+            this.bLeft.Click += new System.EventHandler(this.bLeft_Click);
             // 
-            // bUpLeft
+            // bRight
             // 
-            this.bUpLeft.Location = new System.Drawing.Point(29, 28);
-            this.bUpLeft.Name = "bUpLeft";
-            this.bUpLeft.Size = new System.Drawing.Size(41, 41);
-            this.bUpLeft.TabIndex = 11;
-            this.bUpLeft.Text = "up left";
-            this.bUpLeft.UseVisualStyleBackColor = true;
-            this.bUpLeft.Click += new System.EventHandler(this.bUpLeft_Click);
+            this.bRight.Location = new System.Drawing.Point(131, 75);
+            this.bRight.Name = "bRight";
+            this.bRight.Size = new System.Drawing.Size(50, 50);
+            this.bRight.TabIndex = 3;
+            this.bRight.Text = "right";
+            this.bRight.UseVisualStyleBackColor = true;
+            this.bRight.Click += new System.EventHandler(this.bRight_Click);
             // 
             // gBoxScale
             // 
@@ -227,37 +228,15 @@
             this.gBoxScale.TabStop = false;
             this.gBoxScale.Text = "Skalowanie";
             // 
-            // nScaleY
+            // bScale
             // 
-            this.nScaleY.DecimalPlaces = 4;
-            this.nScaleY.Location = new System.Drawing.Point(118, 20);
-            this.nScaleY.Maximum = new decimal(new int[] {
-            300,
-            0,
-            0,
-            0});
-            this.nScaleY.Minimum = new decimal(new int[] {
-            300,
-            0,
-            0,
-            -2147483648});
-            this.nScaleY.Name = "nScaleY";
-            this.nScaleY.Size = new System.Drawing.Size(76, 20);
-            this.nScaleY.TabIndex = 0;
-            this.nScaleY.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // lY
-            // 
-            this.lY.AutoSize = true;
-            this.lY.Location = new System.Drawing.Point(102, 22);
-            this.lY.Name = "lY";
-            this.lY.Size = new System.Drawing.Size(12, 13);
-            this.lY.TabIndex = 1;
-            this.lY.Text = "y";
+            this.bScale.Location = new System.Drawing.Point(6, 47);
+            this.bScale.Name = "bScale";
+            this.bScale.Size = new System.Drawing.Size(188, 31);
+            this.bScale.TabIndex = 4;
+            this.bScale.Text = "Skaluj";
+            this.bScale.UseVisualStyleBackColor = true;
+            this.bScale.Click += new System.EventHandler(this.bScale_Click);
             // 
             // lX
             // 
@@ -291,15 +270,37 @@
             0,
             0});
             // 
-            // bScale
+            // lY
             // 
-            this.bScale.Location = new System.Drawing.Point(6, 47);
-            this.bScale.Name = "bScale";
-            this.bScale.Size = new System.Drawing.Size(188, 31);
-            this.bScale.TabIndex = 4;
-            this.bScale.Text = "Skaluj";
-            this.bScale.UseVisualStyleBackColor = true;
-            this.bScale.Click += new System.EventHandler(this.bScale_Click);
+            this.lY.AutoSize = true;
+            this.lY.Location = new System.Drawing.Point(102, 22);
+            this.lY.Name = "lY";
+            this.lY.Size = new System.Drawing.Size(12, 13);
+            this.lY.TabIndex = 1;
+            this.lY.Text = "y";
+            // 
+            // nScaleY
+            // 
+            this.nScaleY.DecimalPlaces = 4;
+            this.nScaleY.Location = new System.Drawing.Point(118, 20);
+            this.nScaleY.Maximum = new decimal(new int[] {
+            300,
+            0,
+            0,
+            0});
+            this.nScaleY.Minimum = new decimal(new int[] {
+            300,
+            0,
+            0,
+            -2147483648});
+            this.nScaleY.Name = "nScaleY";
+            this.nScaleY.Size = new System.Drawing.Size(76, 20);
+            this.nScaleY.TabIndex = 0;
+            this.nScaleY.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // gBoxRotation
             // 
@@ -354,6 +355,7 @@
             // gBoxMethod
             // 
             this.gBoxMethod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.gBoxMethod.Controls.Add(this.rWu);
             this.gBoxMethod.Controls.Add(this.rPrzyrostowy);
             this.gBoxMethod.Location = new System.Drawing.Point(588, 400);
             this.gBoxMethod.Name = "gBoxMethod";
@@ -370,9 +372,9 @@
             this.rPrzyrostowy.Name = "rPrzyrostowy";
             this.rPrzyrostowy.Size = new System.Drawing.Size(80, 17);
             this.rPrzyrostowy.TabIndex = 0;
-            this.rPrzyrostowy.TabStop = true;
             this.rPrzyrostowy.Text = "przyrostowy";
             this.rPrzyrostowy.UseVisualStyleBackColor = true;
+            this.rPrzyrostowy.CheckedChanged += new System.EventHandler(this.rPrzyrostowy_CheckedChanged);
             // 
             // bClearCanvas
             // 
@@ -383,6 +385,17 @@
             this.bClearCanvas.Text = "Wyczyść płutno";
             this.bClearCanvas.UseVisualStyleBackColor = true;
             this.bClearCanvas.Click += new System.EventHandler(this.bClearCanvas_Click);
+            // 
+            // rWu
+            // 
+            this.rWu.AutoSize = true;
+            this.rWu.Location = new System.Drawing.Point(114, 14);
+            this.rWu.Name = "rWu";
+            this.rWu.Size = new System.Drawing.Size(85, 17);
+            this.rWu.TabIndex = 1;
+            this.rWu.Text = "Wu-Rokne\'a";
+            this.rWu.UseVisualStyleBackColor = true;
+            this.rWu.CheckedChanged += new System.EventHandler(this.rWu_CheckedChanged);
             // 
             // Form1
             // 
@@ -398,12 +411,12 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.gBoxMove.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.nX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nX)).EndInit();
             this.gBoxScale.ResumeLayout(false);
             this.gBoxScale.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nScaleY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nScaleX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nScaleY)).EndInit();
             this.gBoxRotation.ResumeLayout(false);
             this.gBoxRotation.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nAngle)).EndInit();
@@ -440,6 +453,7 @@
         private System.Windows.Forms.GroupBox gBoxMethod;
         private System.Windows.Forms.RadioButton rPrzyrostowy;
         private System.Windows.Forms.Button bClearCanvas;
+        private System.Windows.Forms.RadioButton rWu;
     }
 }
 
