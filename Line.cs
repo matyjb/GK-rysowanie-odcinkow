@@ -7,11 +7,14 @@ namespace GK_rysowanie_odcinków
     {
         public Vec2d P1 { get; set; }
         public Vec2d P2 { get; set; }
+        private Color Color = Color.Black;
+        private SolidBrush Brush;
 
         public Line(Vec2d p1, Vec2d p2)
         {
             P1 = p1;
             P2 = p2;
+            Brush = new SolidBrush(Color);
         }
 
         public void Draw(Graphics g)
@@ -32,7 +35,7 @@ namespace GK_rysowanie_odcinków
                         double x = start.X;
                         for (double y = start.Y; y <= end.Y; y++)
                         {
-                            g.FillRectangle(Brushes.Black, (int)Math.Round(x), Convert.ToInt32(y), 1, 1); //SetPixel
+                            SetPixel(g, (int)Math.Round(x), Convert.ToInt32(y), Color.Black);
                             x += (P2.X - P1.X != 0) ? 1 / m : 0;
                         }
                     }
@@ -44,35 +47,13 @@ namespace GK_rysowanie_odcinków
                         double y = start.Y;
                         for (double x = start.X; x <= end.X; x++)
                         {
-                            g.FillRectangle(Brushes.Black, Convert.ToInt32(x), (int)Math.Round(y), 1, 1); //SetPixel
+                            SetPixel(g, Convert.ToInt32(x), (int)Math.Round(y), Color.Black);
                             y += m;
                         }
                     }
                     break;
                 case LineDrawingAlgorithms.Wu:
-                    //help functions
-                    int ipart(double x) { return (int)x; }
-
-                    int round(double x) { return ipart(x + 0.5); }
-
-                    double fpart(double x)
-                    {
-                        if (x < 0) return 1 - (x - Math.Floor(x));
-                        return (x - Math.Floor(x));
-                    }
-
-                    double rfpart(double x)
-                    {
-                        return 1 - fpart(x);
-                    }
-
-                    void swap(ref double o1, ref double o2)
-                    {
-                        double tmp = o1;
-                        o1 = o2;
-                        o2 = tmp;
-                    }
-
+                    
                     double x0 = P1.X;
                     double x1 = P2.X;
                     double y0 = P1.Y;
@@ -98,76 +79,59 @@ namespace GK_rysowanie_odcinków
                     double gradient = dx == 0 ? 1 : dy / dx;
 
 
+                    //start point
                     double xEnd = round(x0);
                     double yEnd = y0 + gradient * (xEnd - x0);
                     double xGap = rfpart(x0 + 0.5);
                     double xPixel1 = xEnd;
                     double yPixel1 = ipart(yEnd);
 
+
+                    Color c1 = Color.FromArgb((int)(rfpart(yEnd) * xGap * 255), Color);
+                    Color c2 = Color.FromArgb((int)(fpart(yEnd) * xGap * 255), Color);
                     if (steep)
                     {
-                        double c1 = rfpart(yEnd) * xGap;
-                        double c2 = fpart(yEnd) * xGap;
-                        SolidBrush b1 = new SolidBrush(Color.FromArgb((int)(c1 * 255), Color.Black));
-                        SolidBrush b2 = new SolidBrush(Color.FromArgb((int)(c2 * 255), Color.Black));
-                        g.FillRectangle(b1, (int)yPixel1, (int)xPixel1, 1, 1);
-                        g.FillRectangle(b2, (int)yPixel1 + 1, (int)xPixel1, 1, 1);
-                        //plot(bitmap, yPixel1, xPixel1, rfpart(yEnd) * xGap);
-                        //plot(bitmap, yPixel1 + 1, xPixel1, fpart(yEnd) * xGap);
+                        SetPixel(g, (int)yPixel1, (int)xPixel1, c1);
+                        SetPixel(g, (int)yPixel1 + 1, (int)xPixel1, c2);
                     }
                     else
                     {
-                        double c1 = rfpart(yEnd) * xGap;
-                        double c2 = fpart(yEnd) * xGap;
-                        SolidBrush b1 = new SolidBrush(Color.FromArgb((int)(c1 * 255), Color.Black));
-                        SolidBrush b2 = new SolidBrush(Color.FromArgb((int)(c2 * 255), Color.Black));
-                        g.FillRectangle(b1, (int)xPixel1, (int)yPixel1, 1, 1);
-                        g.FillRectangle(b2, (int)xPixel1, (int)yPixel1 + 1, 1, 1);
-                        //plot(bitmap, xPixel1, yPixel1, rfpart(yEnd) * xGap);
-                        //plot(bitmap, xPixel1, yPixel1 + 1, fpart(yEnd) * xGap);
+                        SetPixel(g, (int)xPixel1, (int)yPixel1, c1);
+                        SetPixel(g, (int)xPixel1, (int)yPixel1 + 1, c2);
                     }
                     double intery = yEnd + gradient;
 
+                    //end point
                     xEnd = round(x1);
                     yEnd = y1 + gradient * (xEnd - x1);
                     xGap = fpart(x1 + 0.5);
                     double xPixel2 = xEnd;
                     double yPixel2 = ipart(yEnd);
+                    
+
+                    c1 = Color.FromArgb((int)(rfpart(yEnd) * xGap * 255), Color);
+                    c2 = Color.FromArgb((int)(fpart(yEnd) * xGap * 255), Color);
                     if (steep)
                     {
-                        double c1 = rfpart(yEnd) * xGap;
-                        double c2 = fpart(yEnd) * xGap;
-                        SolidBrush b1 = new SolidBrush(Color.FromArgb((int)(c1 * 255), Color.Black));
-                        SolidBrush b2 = new SolidBrush(Color.FromArgb((int)(c2 * 255), Color.Black));
-                        g.FillRectangle(b1, (int)yPixel2, (int)xPixel2, 1, 1);
-                        g.FillRectangle(b2, (int)yPixel2 + 1, (int)xPixel2, 1, 1);
-                        //plot(bitmap, yPixel2, xPixel2, rfpart(yEnd) * xGap);
-                        //plot(bitmap, yPixel2 + 1, xPixel2, fpart(yEnd) * xGap);
+                        SetPixel(g, (int)yPixel2, (int)xPixel2, c1);
+                        SetPixel(g, (int)yPixel2 + 1, (int)xPixel2, c2);
                     }
                     else
                     {
-                        double c1 = rfpart(yEnd) * xGap;
-                        double c2 = fpart(yEnd) * xGap;
-                        SolidBrush b1 = new SolidBrush(Color.FromArgb((int)(c1 * 255), Color.Black));
-                        SolidBrush b2 = new SolidBrush(Color.FromArgb((int)(c2 * 255), Color.Black));
-                        g.FillRectangle(b1, (int)xPixel2, (int)yPixel2, 1, 1);
-                        g.FillRectangle(b2, (int)xPixel2, (int)yPixel2 + 1, 1, 1);
-                        //plot(bitmap, xPixel2, yPixel2, rfpart(yEnd) * xGap);
-                        //plot(bitmap, xPixel2, yPixel2 + 1, fpart(yEnd) * xGap);
+                        SetPixel(g, (int)xPixel2, (int)yPixel2, c1);
+                        SetPixel(g, (int)xPixel2, (int)yPixel2 + 1, c2);
                     }
 
+
+                    //between
                     if (steep)
                     {
                         for (int x = (int)(xPixel1 + 1); x <= xPixel2 - 1; x++)
                         {
-                            double c1 = rfpart(intery);
-                            double c2 = fpart(intery);
-                            SolidBrush b1 = new SolidBrush(Color.FromArgb((int)(c1 * 255), Color.Black));
-                            SolidBrush b2 = new SolidBrush(Color.FromArgb((int)(c2 * 255), Color.Black));
-                            g.FillRectangle(b1, ipart(intery), x, 1, 1);
-                            g.FillRectangle(b2, ipart(intery) + 1, x, 1, 1);
-                            //plot(bitmap, ipart(intery), x, rfpart(intery));
-                            //plot(bitmap, ipart(intery) + 1, x, fpart(intery));
+                            c1 = Color.FromArgb((int)(rfpart(intery) * 255), Color);
+                            c2 = Color.FromArgb((int)(fpart(intery) * 255), Color);
+                            SetPixel(g, ipart(intery), x, c1);
+                            SetPixel(g, ipart(intery) + 1, x, c2);
                             intery += gradient;
                         }
                     }
@@ -175,14 +139,10 @@ namespace GK_rysowanie_odcinków
                     {
                         for (int x = (int)(xPixel1 + 1); x <= xPixel2 - 1; x++)
                         {
-                            double c1 = rfpart(intery);
-                            double c2 = fpart(intery);
-                            SolidBrush b1 = new SolidBrush(Color.FromArgb((int)(c1 * 255), Color.Black));
-                            SolidBrush b2 = new SolidBrush(Color.FromArgb((int)(c2 * 255), Color.Black));
-                            g.FillRectangle(b1, x, ipart(intery), 1, 1);
-                            g.FillRectangle(b2, x, ipart(intery) + 1, 1, 1);
-                            //plot(bitmap, x, ipart(intery), rfpart(intery));
-                            //plot(bitmap, x, ipart(intery) + 1, fpart(intery));
+                            c1 = Color.FromArgb((int)(rfpart(intery) * 255), Color);
+                            c2 = Color.FromArgb((int)(fpart(intery) * 255), Color);
+                            SetPixel(g, x, ipart(intery), c1);
+                            SetPixel(g, x, ipart(intery) + 1, c2);
                             intery += gradient;
                         }
                     }
@@ -208,5 +168,34 @@ namespace GK_rysowanie_odcinków
             P1.Scale(by, origin);
             P2.Scale(by, origin);
         }
+
+        private void SetPixel(Graphics g, int x, int y, Color color)
+        {
+            Brush.Color = color;
+            g.FillRectangle(Brush, x, y, 1, 1);
+        }
+        //help functions
+        static private int ipart(double x) { return (int)x; }
+
+        static private int round(double x) { return ipart(x + 0.5); }
+
+        static private double fpart(double x)
+        {
+            if (x < 0) return 1 - (x - Math.Floor(x));
+            return (x - Math.Floor(x));
+        }
+
+        static private double rfpart(double x)
+        {
+            return 1 - fpart(x);
+        }
+
+        static private void swap(ref double o1, ref double o2)
+        {
+            double tmp = o1;
+            o1 = o2;
+            o2 = tmp;
+        }
+
     }
 }
