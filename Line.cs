@@ -106,15 +106,23 @@ namespace GK_rysowanie_odcinków
 
                     if (steep)
                     {
-                        g.FillRectangle(Brushes.Black, (int)yPixel1, (int)xPixel1, 1, 1);
-                        g.FillRectangle(Brushes.Black, (int)yPixel1 + 1, (int)xPixel1, 1, 1);
+                        double c1 = rfpart(yEnd) * xGap;
+                        double c2 = fpart(yEnd) * xGap;
+                        SolidBrush b1 = new SolidBrush(Color.FromArgb((int)(c1 * 255), Color.Black));
+                        SolidBrush b2 = new SolidBrush(Color.FromArgb((int)(c2 * 255), Color.Black));
+                        g.FillRectangle(b1, (int)yPixel1, (int)xPixel1, 1, 1);
+                        g.FillRectangle(b2, (int)yPixel1 + 1, (int)xPixel1, 1, 1);
                         //plot(bitmap, yPixel1, xPixel1, rfpart(yEnd) * xGap);
                         //plot(bitmap, yPixel1 + 1, xPixel1, fpart(yEnd) * xGap);
                     }
                     else
                     {
-                        g.FillRectangle(Brushes.Black, (int)xPixel1, (int)yPixel1, 1, 1);
-                        g.FillRectangle(Brushes.Black, (int)xPixel1, (int)yPixel1 + 1, 1, 1);
+                        double c1 = rfpart(yEnd) * xGap;
+                        double c2 = fpart(yEnd) * xGap;
+                        SolidBrush b1 = new SolidBrush(Color.FromArgb((int)(c1 * 255), Color.Black));
+                        SolidBrush b2 = new SolidBrush(Color.FromArgb((int)(c2 * 255), Color.Black));
+                        g.FillRectangle(b1, (int)xPixel1, (int)yPixel1, 1, 1);
+                        g.FillRectangle(b2, (int)xPixel1, (int)yPixel1 + 1, 1, 1);
                         //plot(bitmap, xPixel1, yPixel1, rfpart(yEnd) * xGap);
                         //plot(bitmap, xPixel1, yPixel1 + 1, fpart(yEnd) * xGap);
                     }
@@ -127,15 +135,23 @@ namespace GK_rysowanie_odcinków
                     double yPixel2 = ipart(yEnd);
                     if (steep)
                     {
-                        g.FillRectangle(Brushes.Black, (int)yPixel2, (int)xPixel2, 1, 1);
-                        g.FillRectangle(Brushes.Black, (int)yPixel2 + 1, (int)xPixel2, 1, 1);
+                        double c1 = rfpart(yEnd) * xGap;
+                        double c2 = fpart(yEnd) * xGap;
+                        SolidBrush b1 = new SolidBrush(Color.FromArgb((int)(c1 * 255), Color.Black));
+                        SolidBrush b2 = new SolidBrush(Color.FromArgb((int)(c2 * 255), Color.Black));
+                        g.FillRectangle(b1, (int)yPixel2, (int)xPixel2, 1, 1);
+                        g.FillRectangle(b2, (int)yPixel2 + 1, (int)xPixel2, 1, 1);
                         //plot(bitmap, yPixel2, xPixel2, rfpart(yEnd) * xGap);
                         //plot(bitmap, yPixel2 + 1, xPixel2, fpart(yEnd) * xGap);
                     }
                     else
                     {
-                        g.FillRectangle(Brushes.Black, (int)xPixel2, (int)yPixel2, 1, 1);
-                        g.FillRectangle(Brushes.Black, (int)xPixel2, (int)yPixel2 + 1, 1, 1);
+                        double c1 = rfpart(yEnd) * xGap;
+                        double c2 = fpart(yEnd) * xGap;
+                        SolidBrush b1 = new SolidBrush(Color.FromArgb((int)(c1 * 255), Color.Black));
+                        SolidBrush b2 = new SolidBrush(Color.FromArgb((int)(c2 * 255), Color.Black));
+                        g.FillRectangle(b1, (int)xPixel2, (int)yPixel2, 1, 1);
+                        g.FillRectangle(b2, (int)xPixel2, (int)yPixel2 + 1, 1, 1);
                         //plot(bitmap, xPixel2, yPixel2, rfpart(yEnd) * xGap);
                         //plot(bitmap, xPixel2, yPixel2 + 1, fpart(yEnd) * xGap);
                     }
@@ -144,8 +160,12 @@ namespace GK_rysowanie_odcinków
                     {
                         for (int x = (int)(xPixel1 + 1); x <= xPixel2 - 1; x++)
                         {
-                            g.FillRectangle(Brushes.Black, ipart(intery), x, 1, 1);
-                            g.FillRectangle(Brushes.Black, ipart(intery) + 1, x, 1, 1);
+                            double c1 = rfpart(intery);
+                            double c2 = fpart(intery);
+                            SolidBrush b1 = new SolidBrush(Color.FromArgb((int)(c1 * 255), Color.Black));
+                            SolidBrush b2 = new SolidBrush(Color.FromArgb((int)(c2 * 255), Color.Black));
+                            g.FillRectangle(b1, ipart(intery), x, 1, 1);
+                            g.FillRectangle(b2, ipart(intery) + 1, x, 1, 1);
                             //plot(bitmap, ipart(intery), x, rfpart(intery));
                             //plot(bitmap, ipart(intery) + 1, x, fpart(intery));
                             intery += gradient;
@@ -155,8 +175,12 @@ namespace GK_rysowanie_odcinków
                     {
                         for (int x = (int)(xPixel1 + 1); x <= xPixel2 - 1; x++)
                         {
-                            g.FillRectangle(Brushes.Black, x, ipart(intery), 1, 1);
-                            g.FillRectangle(Brushes.Black, x, ipart(intery) + 1, 1, 1);
+                            double c1 = rfpart(intery);
+                            double c2 = fpart(intery);
+                            SolidBrush b1 = new SolidBrush(Color.FromArgb((int)(c1 * 255), Color.Black));
+                            SolidBrush b2 = new SolidBrush(Color.FromArgb((int)(c2 * 255), Color.Black));
+                            g.FillRectangle(b1, x, ipart(intery), 1, 1);
+                            g.FillRectangle(b2, x, ipart(intery) + 1, 1, 1);
                             //plot(bitmap, x, ipart(intery), rfpart(intery));
                             //plot(bitmap, x, ipart(intery) + 1, fpart(intery));
                             intery += gradient;
