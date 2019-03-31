@@ -80,24 +80,24 @@ namespace GK_rysowanie_odcinków
 
 
                     //start point
-                    double xEnd = round(x0);
+                    int xEnd = round(x0);
                     double yEnd = y0 + gradient * (xEnd - x0);
                     double xGap = rfpart(x0 + 0.5);
-                    double xPixel1 = xEnd;
-                    double yPixel1 = ipart(yEnd);
+                    int xPixel1 = xEnd;
+                    int yPixel1 = ipart(yEnd);
 
 
                     Color c1 = Color.FromArgb((int)(rfpart(yEnd) * xGap * 255), Color);
                     Color c2 = Color.FromArgb((int)(fpart(yEnd) * xGap * 255), Color);
                     if (steep)
                     {
-                        SetPixel(g, (int)yPixel1, (int)xPixel1, c1);
-                        SetPixel(g, (int)yPixel1 + 1, (int)xPixel1, c2);
+                        SetPixel(g, yPixel1, xPixel1, c1);
+                        SetPixel(g, yPixel1 + 1, xPixel1, c2);
                     }
                     else
                     {
-                        SetPixel(g, (int)xPixel1, (int)yPixel1, c1);
-                        SetPixel(g, (int)xPixel1, (int)yPixel1 + 1, c2);
+                        SetPixel(g, xPixel1, yPixel1, c1);
+                        SetPixel(g, xPixel1, yPixel1 + 1, c2);
                     }
                     double intery = yEnd + gradient;
 
@@ -105,28 +105,28 @@ namespace GK_rysowanie_odcinków
                     xEnd = round(x1);
                     yEnd = y1 + gradient * (xEnd - x1);
                     xGap = fpart(x1 + 0.5);
-                    double xPixel2 = xEnd;
-                    double yPixel2 = ipart(yEnd);
+                    int xPixel2 = xEnd;
+                    int yPixel2 = ipart(yEnd);
                     
 
                     c1 = Color.FromArgb((int)(rfpart(yEnd) * xGap * 255), Color);
                     c2 = Color.FromArgb((int)(fpart(yEnd) * xGap * 255), Color);
                     if (steep)
                     {
-                        SetPixel(g, (int)yPixel2, (int)xPixel2, c1);
-                        SetPixel(g, (int)yPixel2 + 1, (int)xPixel2, c2);
+                        SetPixel(g, yPixel2, xPixel2, c1);
+                        SetPixel(g, yPixel2 + 1, xPixel2, c2);
                     }
                     else
                     {
-                        SetPixel(g, (int)xPixel2, (int)yPixel2, c1);
-                        SetPixel(g, (int)xPixel2, (int)yPixel2 + 1, c2);
+                        SetPixel(g, xPixel2, yPixel2, c1);
+                        SetPixel(g, xPixel2, yPixel2 + 1, c2);
                     }
 
 
                     //between
                     if (steep)
                     {
-                        for (int x = (int)(xPixel1 + 1); x <= xPixel2 - 1; x++)
+                        for (int x = (xPixel1 + 1); x <= xPixel2 - 1; x++)
                         {
                             c1 = Color.FromArgb((int)(rfpart(intery) * 255), Color);
                             c2 = Color.FromArgb((int)(fpart(intery) * 255), Color);
@@ -137,7 +137,7 @@ namespace GK_rysowanie_odcinków
                     }
                     else
                     {
-                        for (int x = (int)(xPixel1 + 1); x <= xPixel2 - 1; x++)
+                        for (int x = (xPixel1 + 1); x <= xPixel2 - 1; x++)
                         {
                             c1 = Color.FromArgb((int)(rfpart(intery) * 255), Color);
                             c2 = Color.FromArgb((int)(fpart(intery) * 255), Color);
