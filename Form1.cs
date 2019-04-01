@@ -39,7 +39,7 @@ namespace GK_rysowanie_odcinków
 
                 origin,
             };
-
+            canvas.StartSLMF();
         }
 
         private void canvas_Paint(object sender, PaintEventArgs e)
@@ -56,28 +56,28 @@ namespace GK_rysowanie_odcinków
         {
             foreach(ITransformableVec2d t in drawables.OfType<ITransformableVec2d>())
                 t.Move(new Vec2d(0, -(double)nY.Value));
-            canvas.Refresh();
+            
         }
 
         private void bRight_Click(object sender, EventArgs e)
         {
             foreach (ITransformableVec2d t in drawables.OfType<ITransformableVec2d>())
                 t.Move(new Vec2d((double)nX.Value, 0));
-            canvas.Refresh();
+            
         }
 
         private void bDown_Click(object sender, EventArgs e)
         {
             foreach (ITransformableVec2d t in drawables.OfType<ITransformableVec2d>())
                 t.Move(new Vec2d(0, (double)nY.Value));
-            canvas.Refresh();
+            
         }
 
         private void bLeft_Click(object sender, EventArgs e)
         {
             foreach (ITransformableVec2d t in drawables.OfType<ITransformableVec2d>())
                 t.Move(new Vec2d(-(double)nX.Value, 0));
-            canvas.Refresh();
+            
         }
 
         private void bUpRight_Click(object sender, EventArgs e)
@@ -108,7 +108,7 @@ namespace GK_rysowanie_odcinków
         {
             foreach (ITransformableVec2d t in drawables.OfType<ITransformableVec2d>())
                 t.Scale(new Vec2d((double)nScaleX.Value, (double)nScaleY.Value),origin.Position);
-            canvas.Refresh();
+            
         }
 
         private void bRotate_Click(object sender, EventArgs e)
@@ -116,7 +116,7 @@ namespace GK_rysowanie_odcinków
 
             foreach (ITransformableVec2d t in drawables.OfType<ITransformableVec2d>())
                 t.Rotate((double)nAngle.Value*Math.PI/180f, origin.Position);
-            canvas.Refresh();
+            
         }
 
         private void canvas_MouseClick(object sender, MouseEventArgs e)
@@ -128,12 +128,12 @@ namespace GK_rysowanie_odcinków
                     if(newLinePoints.Count == 2)
                     {
                         drawables.Add(new Line(newLinePoints.Pop(), newLinePoints.Pop()));
-                        canvas.Refresh();
+                        
                     }
                     break;
                 case MouseButtons.Right: //place origin
                     origin.Position = new Vec2d(e.Location.X, e.Location.Y);
-                    canvas.Refresh();
+                    
                     break;
             }
         }
@@ -142,19 +142,19 @@ namespace GK_rysowanie_odcinków
         {
             drawables.Clear();
             drawables.Add(origin);
-            canvas.Refresh();
+            
         }
 
         private void rPrzyrostowy_CheckedChanged(object sender, EventArgs e)
         {
             options.LineDrawingAlgorithm = LineDrawingAlgorithms.Przyrostowy;
-            canvas.Refresh();
+            
         }
 
         private void rWu_CheckedChanged(object sender, EventArgs e)
         {
             options.LineDrawingAlgorithm = LineDrawingAlgorithms.Wu;
-            canvas.Refresh();
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
