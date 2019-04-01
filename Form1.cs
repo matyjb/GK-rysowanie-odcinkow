@@ -54,29 +54,29 @@ namespace GK_rysowanie_odcinków
 
         private void bUp_Click(object sender, EventArgs e)
         {
-            foreach(Transformable<double> t in drawables.OfType<Transformable<double>>())
-                t.Move(new Vec2<double>(0, -(double)nY.Value));
+            foreach(ITransformableVec2d t in drawables.OfType<ITransformableVec2d>())
+                t.Move(new Vec2d(0, -(double)nY.Value));
             canvas.Refresh();
         }
 
         private void bRight_Click(object sender, EventArgs e)
         {
-            foreach (Transformable<double> t in drawables.OfType<Transformable<double>>())
-                t.Move(new Vec2<double>((double)nX.Value, 0));
+            foreach (ITransformableVec2d t in drawables.OfType<ITransformableVec2d>())
+                t.Move(new Vec2d((double)nX.Value, 0));
             canvas.Refresh();
         }
 
         private void bDown_Click(object sender, EventArgs e)
         {
-            foreach (Transformable<double> t in drawables.OfType<Transformable<double>>())
-                t.Move(new Vec2<double>(0, (double)nY.Value));
+            foreach (ITransformableVec2d t in drawables.OfType<ITransformableVec2d>())
+                t.Move(new Vec2d(0, (double)nY.Value));
             canvas.Refresh();
         }
 
         private void bLeft_Click(object sender, EventArgs e)
         {
-            foreach (Transformable<double> t in drawables.OfType<Transformable<double>>())
-                t.Move(new Vec2<double>(-(double)nX.Value, 0));
+            foreach (ITransformableVec2d t in drawables.OfType<ITransformableVec2d>())
+                t.Move(new Vec2d(-(double)nX.Value, 0));
             canvas.Refresh();
         }
 
@@ -106,7 +106,7 @@ namespace GK_rysowanie_odcinków
 
         private void bScale_Click(object sender, EventArgs e)
         {
-            foreach (Transformable<double> t in drawables.OfType<Transformable<double>>())
+            foreach (ITransformableVec2d t in drawables.OfType<ITransformableVec2d>())
                 t.Scale(new Vec2d((double)nScaleX.Value, (double)nScaleY.Value),origin.Position);
             canvas.Refresh();
         }
@@ -114,7 +114,7 @@ namespace GK_rysowanie_odcinków
         private void bRotate_Click(object sender, EventArgs e)
         {
 
-            foreach (Transformable<double> t in drawables.OfType<Transformable<double>>())
+            foreach (ITransformableVec2d t in drawables.OfType<ITransformableVec2d>())
                 t.Rotate((double)nAngle.Value*Math.PI/180f, origin.Position);
             canvas.Refresh();
         }

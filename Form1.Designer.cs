@@ -409,7 +409,7 @@
             this.Controls.Add(this.gBoxMove);
             this.Controls.Add(this.canvas);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "GK - rysowanie odcinków";
             this.gBoxMove.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nX)).EndInit();

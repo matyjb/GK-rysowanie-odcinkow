@@ -3,11 +3,11 @@ using System.Drawing;
 
 namespace GK_rysowanie_odcinków
 {
-    class Line : Transformable<double>, Drawable
+    class Line : ITransformableVec2d, Drawable
     {
         public Vec2d P1 { get; set; }
         public Vec2d P2 { get; set; }
-        private Color Color = Color.Black;
+        private readonly Color Color = Color.Black;
         private SolidBrush Brush;
 
         public Line(Vec2d p1, Vec2d p2)
@@ -151,19 +151,19 @@ namespace GK_rysowanie_odcinków
 
         }
 
-        public void Move(Vec2<double> by)
+        public void Move(Vec2d by)
         {
             P1.Move(by);
             P2.Move(by);
         }
 
-        public void Rotate(double angle, Vec2<double> origin)
+        public void Rotate(double angle, Vec2d origin)
         {
             P1.Rotate(angle, origin);
             P2.Rotate(angle, origin);
         }
 
-        public void Scale(Vec2<double> by, Vec2<double> origin)
+        public void Scale(Vec2d by, Vec2d origin)
         {
             P1.Scale(by, origin);
             P2.Scale(by, origin);

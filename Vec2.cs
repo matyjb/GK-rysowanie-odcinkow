@@ -1,73 +1,64 @@
 ﻿using System;
 namespace GK_rysowanie_odcinków
 {
-    public class Vec2<T> : Transformable<T>
+    public class Vec2d : ITransformableVec2d
     {
-        public T X { get; set; }
-        public T Y { get; set; }
+        public double X { get; set; }
+        public double Y { get; set; }
 
-        public Vec2(T x, T y)
+        public Vec2d() : this(0, 0) { }
+        public Vec2d(double x, double y)
         {
             X = x;
             Y = y;
         }
 
-        public void Move(Vec2<T> by)
+        public void Move(Vec2d by)
         {
-            X = (dynamic)by.X + (dynamic)X;
-            Y = (dynamic)by.Y + (dynamic)Y;
+            X = by.X + X;
+            Y = by.Y + Y;
         }
 
-        public void Rotate(double angle, Vec2<T> origin)
+        public void Rotate(double angle, Vec2d origin)
         {
             Move(-origin);
-            T xp = X * (dynamic)Math.Cos(angle) - Y * (dynamic)Math.Sin(angle);
-            T yp = X * (dynamic)Math.Sin(angle) + Y * (dynamic)Math.Cos(angle);
+            double xp = X * Math.Cos(angle) - Y * Math.Sin(angle);
+            double yp = X * Math.Sin(angle) + Y * Math.Cos(angle);
             X = xp;
             Y = yp;
             Move(origin);
         }
         public void Rotate(double angle)
         {
-            Rotate(angle, new Vec2<T>((dynamic)0, (dynamic)0));
+            Rotate(angle, new Vec2d(0, 0));
         }
 
-        public void Scale(Vec2<double> by, Vec2<T> origin)
+        public void Scale(Vec2d by, Vec2d origin)
         {
             Move(-origin);
-            X = (dynamic)((dynamic)X * (dynamic)by.X);
-            Y = (dynamic)((dynamic)Y * (dynamic)by.Y);
+            X = (X * by.X);
+            Y = (Y * by.Y);
             Move(origin);
         }
 
-        public void Scale(Vec2<double> by)
+        public void Scale(Vec2d by)
         {
-            Scale(by, new Vec2<T>((dynamic)0, (dynamic)0));
+            Scale(by, new Vec2d(0, 0));
         }
 
-        public static Vec2<T> operator +(Vec2<T> l, Vec2<T> r)
+        public static Vec2d operator +(Vec2d l, Vec2d r)
         {
-            return new Vec2<T>((dynamic)l.X + r.X, (dynamic)l.Y + r.Y);
+            return new Vec2d(l.X + r.X, l.Y + r.Y);
         }
 
-        public static Vec2<T> operator -(Vec2<T> l, Vec2<T> r)
+        public static Vec2d operator -(Vec2d l, Vec2d r)
         {
-            return new Vec2<T>((dynamic)l.X - r.X, (dynamic)l.Y - r.Y);
+            return new Vec2d(l.X - r.X, l.Y - r.Y);
         }
 
-        public static Vec2<T> operator -(Vec2<T> r)
+        public static Vec2d operator -(Vec2d r)
         {
-            return new Vec2<T>(-(dynamic)r.X, -(dynamic)r.Y);
+            return new Vec2d(-r.X, -r.Y);
         }
-    }
-    public class Vec2d : Vec2<double>
-    {
-        public Vec2d(double x, double y) : base(x, y) { }
-        public Vec2d() : base(0,0) { }
-    }
-    public class Vec2i : Vec2<int>
-    {
-        public Vec2i(int x, int y) : base(x, y) { }
-        public Vec2i() : base(0, 0) { }
     }
 }
