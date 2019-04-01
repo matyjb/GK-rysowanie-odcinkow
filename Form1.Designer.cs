@@ -54,6 +54,7 @@
             this.rPrzyrostowy = new System.Windows.Forms.RadioButton();
             this.bClearCanvas = new System.Windows.Forms.Button();
             this.rWu = new System.Windows.Forms.RadioButton();
+            this.button1 = new System.Windows.Forms.Button();
             this.gBoxMove.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nX)).BeginInit();
@@ -378,9 +379,10 @@
             // 
             // bClearCanvas
             // 
+            this.bClearCanvas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.bClearCanvas.Location = new System.Drawing.Point(594, 444);
             this.bClearCanvas.Name = "bClearCanvas";
-            this.bClearCanvas.Size = new System.Drawing.Size(188, 39);
+            this.bClearCanvas.Size = new System.Drawing.Size(139, 39);
             this.bClearCanvas.TabIndex = 7;
             this.bClearCanvas.Text = "Wyczyść płutno";
             this.bClearCanvas.UseVisualStyleBackColor = true;
@@ -397,11 +399,23 @@
             this.rWu.UseVisualStyleBackColor = true;
             this.rWu.CheckedChanged += new System.EventHandler(this.rWu_CheckedChanged);
             // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(739, 444);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(49, 39);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "Help";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 495);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.bClearCanvas);
             this.Controls.Add(this.gBoxMethod);
             this.Controls.Add(this.gBoxRotation);
@@ -454,6 +468,7 @@
         private System.Windows.Forms.RadioButton rPrzyrostowy;
         private System.Windows.Forms.Button bClearCanvas;
         private System.Windows.Forms.RadioButton rWu;
+        private System.Windows.Forms.Button button1;
     }
 }
 
