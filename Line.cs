@@ -140,10 +140,10 @@ namespace GK_rysowanie_odcinków
                     {
                         for (int x = xpxl1; x <= xpxl2; x++)
                         {
-                            Color.A = (byte)(fpart(intersectY)*255);
-                            SetPixel(target,ipart(intersectY), x, Color);
-                            Color.A = (byte)(rfpart(intersectY) * 255);
-                            SetPixel(target, ipart(intersectY)-1, x, Color);
+                            Color.A = (byte)(rfpart(intersectY)*255);
+                            SetPixel(target, ipart(intersectY), x, Color);
+                            Color.A = (byte)(fpart(intersectY) * 255);
+                            SetPixel(target, ipart(intersectY) + 1, x, Color);
                             intersectY += gradient;
                         }
                     }
@@ -151,10 +151,10 @@ namespace GK_rysowanie_odcinków
                     {
                         for (int x = xpxl1; x <= xpxl2; x++)
                         {
-                            Color.A = (byte)(fpart(intersectY) * 255);
-                            SetPixel(target, x, ipart(intersectY), Color);
                             Color.A = (byte)(rfpart(intersectY) * 255);
-                            SetPixel(target, x, ipart(intersectY) - 1, Color);
+                            SetPixel(target, x, ipart(intersectY), Color);
+                            Color.A = (byte)(fpart(intersectY) * 255);
+                            SetPixel(target, x, ipart(intersectY) + 1, Color);
                             intersectY += gradient;
                         }
                     }

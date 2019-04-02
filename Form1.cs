@@ -88,7 +88,7 @@ namespace GK_rysowanie_odcinków
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("PPM - ustawienie punktu środka\nLPM - \n\t[1st click]ustawienie początku linii\n\t[2nd click]ustawienie końca linii i narysowanie jej");
+            MessageBox.Show("PPM - ustawienie punktu środka\nLPM - rysowanie linii");
         }
     }
 }
