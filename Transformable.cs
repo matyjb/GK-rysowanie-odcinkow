@@ -1,9 +1,11 @@
-﻿namespace GK_rysowanie_odcinków
+﻿using SFML.System;
+
+namespace GK_rysowanie_odcinków
 {
-    interface ITransformableVec2d
+    interface ITransformable
     {
-        void Rotate(double angle, Vec2d origin);
-        void Scale(Vec2d by, Vec2d origin);
-        void Move(Vec2d by);
+        void Rotate(double angle, Vector2f origin);
+        void Scale(Vector2f by, Vector2f origin);
+        void Move(Vector2f by);
     }
 }

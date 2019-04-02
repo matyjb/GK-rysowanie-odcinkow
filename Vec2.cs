@@ -1,7 +1,7 @@
 ﻿using System;
-namespace GK_rysowanie_odcinków
+namespace GK_rysowanie_odcinków_moje
 {
-    public class Vec2d : ITransformableVec2d
+    public class Vec2d
     {
         public double X { get; set; }
         public double Y { get; set; }

@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace GK_rysowanie_odcinków
+namespace GK_rysowanie_odcinków_moje
 {
     interface Drawable
     {
