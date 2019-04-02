@@ -111,11 +111,10 @@ namespace GK_rysowanie_odcinków
                     float x1 = P2.X;
                     float y0 = P1.Y;
                     float y1 = P2.Y;
-
-
-
-                    //start of algorithm
                     bool steep = Math.Abs(y1 - y0) > Math.Abs(x1 - x0);
+
+                    // swap the co-ordinates if slope > 1 or we 
+                    // draw backwards 
                     if (steep)
                     {
                         swap(ref x0, ref y0);
@@ -127,78 +126,36 @@ namespace GK_rysowanie_odcinków
                         swap(ref y0, ref y1);
                     }
 
+                    //compute the slope 
                     float dx = x1 - x0;
                     float dy = y1 - y0;
                     float gradient = dx == 0 ? 1 : dy / dx;
 
+                    int xpxl1 = ipart(x0);
+                    int xpxl2 = ipart(x1);
+                    float intersectY = y0;
 
-                    //start point
-                    int xEnd = round(x0);
-                    float yEnd = y0 + gradient * (xEnd - x0);
-                    float xGap = rfpart(x0 + 0.5f);
-                    int xPixel1 = xEnd;
-                    int yPixel1 = ipart(yEnd);
-                    
+                    // main loop 
                     if (steep)
                     {
-                        Color.A = (byte)(rfpart(yEnd) * xGap * 255);
-                        SetPixel(target, yPixel1, xPixel1, Color);
-                        Color.A = (byte)(fpart(yEnd) * xGap * 255);
-                        SetPixel(target, yPixel1 + 1, xPixel1, Color);
-                    }
-                    else
-                    {
-                        Color.A = (byte)(rfpart(yEnd) * xGap * 255);
-                        SetPixel(target, xPixel1, yPixel1, Color);
-                        Color.A = (byte)(fpart(yEnd) * xGap * 255);
-                        SetPixel(target, xPixel1, yPixel1 + 1, Color);
-                    }
-                    float intery = yEnd + gradient;
-
-                    //end point
-                    xEnd = round(x1);
-                    yEnd = y1 + gradient * (xEnd - x1);
-                    xGap = fpart(x1 + 0.5f);
-                    int xPixel2 = xEnd;
-                    int yPixel2 = ipart(yEnd);
-                    
-                    if (steep)
-                    {
-                        Color.A = (byte)(rfpart(yEnd) * xGap * 255);
-                        SetPixel(target, yPixel2, xPixel2, Color);
-                        Color.A = (byte)(fpart(yEnd) * xGap * 255);
-                        SetPixel(target, yPixel2 + 1, xPixel2, Color);
-                    }
-                    else
-                    {
-                        Color.A = (byte)(rfpart(yEnd) * xGap * 255);
-                        SetPixel(target, xPixel2, yPixel2, Color);
-                        Color.A = (byte)(fpart(yEnd) * xGap * 255);
-                        SetPixel(target, xPixel2, yPixel2 + 1, Color);
-                    }
-
-
-                    //between
-                    if (steep)
-                    {
-                        for (int x = (xPixel1 + 1); x <= xPixel2 - 1; x++)
+                        for (int x = xpxl1; x <= xpxl2; x++)
                         {
-                            Color.A = (byte)(rfpart(yEnd) * xGap * 255);
-                            SetPixel(target, ipart(intery), x, Color);
-                            Color.A = (byte)(fpart(yEnd) * xGap * 255);
-                            SetPixel(target, ipart(intery) + 1, x, Color);
-                            intery += gradient;
+                            Color.A = (byte)(fpart(intersectY)*255);
+                            SetPixel(target,ipart(intersectY), x, Color);
+                            Color.A = (byte)(rfpart(intersectY) * 255);
+                            SetPixel(target, ipart(intersectY)-1, x, Color);
+                            intersectY += gradient;
                         }
                     }
                     else
                     {
-                        for (int x = (xPixel1 + 1); x <= xPixel2 - 1; x++)
+                        for (int x = xpxl1; x <= xpxl2; x++)
                         {
-                            Color.A = (byte)(rfpart(yEnd) * xGap * 255);
-                            SetPixel(target, x, ipart(intery), Color);
-                            Color.A = (byte)(fpart(yEnd) * xGap * 255);
-                            SetPixel(target, x, ipart(intery) + 1, Color);
-                            intery += gradient;
+                            Color.A = (byte)(fpart(intersectY) * 255);
+                            SetPixel(target, x, ipart(intersectY), Color);
+                            Color.A = (byte)(rfpart(intersectY) * 255);
+                            SetPixel(target, x, ipart(intersectY) - 1, Color);
+                            intersectY += gradient;
                         }
                     }
                     break;
