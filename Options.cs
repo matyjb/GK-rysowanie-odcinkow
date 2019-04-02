@@ -1,5 +1,4 @@
-﻿
-namespace GK_rysowanie_odcinków
+﻿namespace GK_rysowanie_odcinków
 {
     public enum LineDrawingAlgorithms
     {

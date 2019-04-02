@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace GK_rysowanie_odcinków
@@ -73,6 +70,7 @@ namespace GK_rysowanie_odcinków
 
         private void bClearCanvas_Click(object sender, EventArgs e)
         {
+            while (canvas.drawablesPadlock) { } //wait till drawing is complete
             canvas.ClearCanvas();
         }
 

@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using SFML;
 using SFML.System;
 using SFML.Graphics;
 using SFML.Window;
@@ -17,6 +13,7 @@ namespace GK_rysowanie_odcinków
     {
         private RenderWindow RendWind;
         public List<Drawable> drawables;
+        public bool drawablesPadlock = false;
         private OriginPointer origin;
         private bool LPMPressed = false;
         private Vector2f LPMPressPosition = new Vector2f();
@@ -38,8 +35,10 @@ namespace GK_rysowanie_odcinków
         }
         public void ClearCanvas()
         {
+            drawablesPadlock = true;
             drawables.Clear();
             drawables.Add(origin);
+            drawablesPadlock = false;
         }
         public SFMLCanvasControl()
         {
@@ -83,9 +82,14 @@ namespace GK_rysowanie_odcinków
 
         private void DrawLoop()
         {
-            foreach(Drawable d in drawables)
-                RendWind.Draw(d);
-            if(LPMPressed)
+            if (!drawablesPadlock)
+            {
+                drawablesPadlock = true;
+                foreach(Drawable d in drawables)
+                    RendWind.Draw(d);
+                drawablesPadlock = false;
+            }
+            if (LPMPressed)
             {
                 Line l = new Line(LPMPressPosition, (Vector2f)Mouse.GetPosition(RendWind));
                 RendWind.Draw(l);
@@ -98,6 +102,7 @@ namespace GK_rysowanie_odcinków
             RendWind.Resized += RendWind_Resized;
             RendWind.MouseButtonPressed += RendWind_MouseButtonPressed;
             RendWind.MouseButtonReleased += RendWind_MouseButtonReleased;
+            RendWind.SetFramerateLimit(0);
             while (RendWind.IsOpen)
             {
                 RendWind.DispatchEvents();

@@ -114,7 +114,6 @@
       <DependentUpon>SFMLCanvasControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Transformable.cs" />
-    <Compile Include="Vec2.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -127,7 +126,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Drawable.cs" />
     <EmbeddedResource Include="SFMLCanvasControl.resx">
       <DependentUpon>SFMLCanvasControl.cs</DependentUpon>
     </EmbeddedResource>
