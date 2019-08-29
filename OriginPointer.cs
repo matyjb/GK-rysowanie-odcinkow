@@ -1,25 +1,28 @@
-﻿using System;
-using System.Drawing;
+﻿using SFML.Graphics;
+using SFML.System;
 
 namespace GK_rysowanie_odcinków
 {
     class OriginPointer : Drawable
     {
-        public Vec2d Position { get; set; }
+        public Vector2f Position { get; set; }
 
-        public OriginPointer(double x, double y)
+        public OriginPointer(float x, float y)
         {
-            Position = new Vec2d(x, y);
+            Position = new Vector2f(x, y);
         }
 
-        public void Draw(Graphics g)
+        public void Draw(RenderTarget target, RenderStates states)
         {
-            g.FillRectangle(Brushes.Red, Convert.ToInt32(Position.X)-1, Convert.ToInt32(Position.Y)-1, 3, 3);
-            g.FillRectangle(Brushes.Orange, Convert.ToInt32(Position.X), Convert.ToInt32(Position.Y), 1, 1);
-            g.FillRectangle(Brushes.Red, Convert.ToInt32(Position.X), Convert.ToInt32(Position.Y)-2, 1, 1);
-            g.FillRectangle(Brushes.Red, Convert.ToInt32(Position.X), Convert.ToInt32(Position.Y)+2, 1, 1);
-            g.FillRectangle(Brushes.Red, Convert.ToInt32(Position.X)-2, Convert.ToInt32(Position.Y), 1, 1);
-            g.FillRectangle(Brushes.Red, Convert.ToInt32(Position.X)+2, Convert.ToInt32(Position.Y), 1, 1);
+            RectangleShape r = new RectangleShape(new Vector2f(5, 5)) {
+                Position = Position,
+                FillColor = Color.Yellow,
+                OutlineColor = Color.Red,
+                OutlineThickness = 1,
+                Origin =new Vector2f(3,3)
+            };
+            target.Draw(r, states);
+            r.Dispose();
         }
     }
 }

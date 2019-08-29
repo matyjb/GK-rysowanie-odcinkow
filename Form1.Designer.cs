@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.canvas = new System.Windows.Forms.Panel();
             this.bUp = new System.Windows.Forms.Button();
             this.gBoxMove = new System.Windows.Forms.GroupBox();
             this.bUpLeft = new System.Windows.Forms.Button();
@@ -51,10 +50,11 @@
             this.lFi = new System.Windows.Forms.Label();
             this.nAngle = new System.Windows.Forms.NumericUpDown();
             this.gBoxMethod = new System.Windows.Forms.GroupBox();
+            this.rWu = new System.Windows.Forms.RadioButton();
             this.rPrzyrostowy = new System.Windows.Forms.RadioButton();
             this.bClearCanvas = new System.Windows.Forms.Button();
-            this.rWu = new System.Windows.Forms.RadioButton();
             this.button1 = new System.Windows.Forms.Button();
+            this.canvas = new GK_rysowanie_odcinków.SFMLCanvasControl();
             this.gBoxMove.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nX)).BeginInit();
@@ -65,18 +65,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nAngle)).BeginInit();
             this.gBoxMethod.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // canvas
-            // 
-            this.canvas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.canvas.Location = new System.Drawing.Point(13, 13);
-            this.canvas.Name = "canvas";
-            this.canvas.Size = new System.Drawing.Size(555, 470);
-            this.canvas.TabIndex = 0;
-            this.canvas.Paint += new System.Windows.Forms.PaintEventHandler(this.canvas_Paint);
-            this.canvas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseClick);
             // 
             // bUp
             // 
@@ -365,6 +353,17 @@
             this.gBoxMethod.TabStop = false;
             this.gBoxMethod.Text = "Algorytm rysujący";
             // 
+            // rWu
+            // 
+            this.rWu.AutoSize = true;
+            this.rWu.Location = new System.Drawing.Point(114, 14);
+            this.rWu.Name = "rWu";
+            this.rWu.Size = new System.Drawing.Size(85, 17);
+            this.rWu.TabIndex = 1;
+            this.rWu.Text = "Wu-Rokne\'a";
+            this.rWu.UseVisualStyleBackColor = true;
+            this.rWu.CheckedChanged += new System.EventHandler(this.rWu_CheckedChanged);
+            // 
             // rPrzyrostowy
             // 
             this.rPrzyrostowy.AutoSize = true;
@@ -373,6 +372,7 @@
             this.rPrzyrostowy.Name = "rPrzyrostowy";
             this.rPrzyrostowy.Size = new System.Drawing.Size(80, 17);
             this.rPrzyrostowy.TabIndex = 0;
+            this.rPrzyrostowy.TabStop = true;
             this.rPrzyrostowy.Text = "przyrostowy";
             this.rPrzyrostowy.UseVisualStyleBackColor = true;
             this.rPrzyrostowy.CheckedChanged += new System.EventHandler(this.rPrzyrostowy_CheckedChanged);
@@ -388,17 +388,6 @@
             this.bClearCanvas.UseVisualStyleBackColor = true;
             this.bClearCanvas.Click += new System.EventHandler(this.bClearCanvas_Click);
             // 
-            // rWu
-            // 
-            this.rWu.AutoSize = true;
-            this.rWu.Location = new System.Drawing.Point(114, 14);
-            this.rWu.Name = "rWu";
-            this.rWu.Size = new System.Drawing.Size(85, 17);
-            this.rWu.TabIndex = 1;
-            this.rWu.Text = "Wu-Rokne\'a";
-            this.rWu.UseVisualStyleBackColor = true;
-            this.rWu.CheckedChanged += new System.EventHandler(this.rWu_CheckedChanged);
-            // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -410,18 +399,29 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // canvas
+            // 
+            this.canvas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.canvas.Location = new System.Drawing.Point(13, 13);
+            this.canvas.Name = "canvas";
+            this.canvas.Size = new System.Drawing.Size(569, 470);
+            this.canvas.TabIndex = 9;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 495);
+            this.Controls.Add(this.canvas);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.bClearCanvas);
             this.Controls.Add(this.gBoxMethod);
             this.Controls.Add(this.gBoxRotation);
             this.Controls.Add(this.gBoxScale);
             this.Controls.Add(this.gBoxMove);
-            this.Controls.Add(this.canvas);
+            this.MinimumSize = new System.Drawing.Size(816, 534);
             this.Name = "Form1";
             this.Text = "GK - rysowanie odcinków";
             this.gBoxMove.ResumeLayout(false);
@@ -441,8 +441,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel canvas;
         private System.Windows.Forms.Button bUp;
         private System.Windows.Forms.GroupBox gBoxMove;
         private System.Windows.Forms.Button bUpLeft;
@@ -469,6 +467,7 @@
         private System.Windows.Forms.Button bClearCanvas;
         private System.Windows.Forms.RadioButton rWu;
         private System.Windows.Forms.Button button1;
+        private SFMLCanvasControl canvas;
     }
 }
 

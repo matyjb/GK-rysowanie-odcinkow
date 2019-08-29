@@ -1,68 +1,119 @@
 ﻿using System;
-using System.Drawing;
+using SFML.Graphics;
+using SFML.System;
 
 namespace GK_rysowanie_odcinków
 {
-    class Line : ITransformableVec2d, Drawable
+    class Line : ITransformable, Drawable
     {
-        public Vec2d P1 { get; set; }
-        public Vec2d P2 { get; set; }
-        private readonly Color Color = Color.Black;
-        private SolidBrush Brush;
+        public Vector2f P1 { get; set; }
+        public Vector2f P2 { get; set; }
+        private Color Color = Color.Black;
 
-        public Line(Vec2d p1, Vec2d p2)
+        public Line(Vector2f p1, Vector2f p2)
         {
             P1 = p1;
             P2 = p2;
-            Brush = new SolidBrush(Color);
         }
 
-        public void Draw(Graphics g)
+        public void Move(Vector2f by)
+        {
+            P1 += by;
+            P2 += by;
+        }
+
+        public void Rotate(double angle, Vector2f origin)
+        {
+            Move(-origin);
+            double xp = P1.X * Math.Cos(angle) - P1.Y * Math.Sin(angle);
+            double yp = P1.X * Math.Sin(angle) + P1.Y * Math.Cos(angle);
+            P1 = new Vector2f((float)xp, (float)yp);
+            xp = P2.X * Math.Cos(angle) - P2.Y * Math.Sin(angle);
+            yp = P2.X * Math.Sin(angle) + P2.Y * Math.Cos(angle);
+            P2 = new Vector2f((float)xp, (float)yp);
+            Move(origin);
+        }
+
+        public void Scale(Vector2f by, Vector2f origin)
+        {
+            Move(-origin);
+            P1 = new Vector2f(P1.X * by.X, P1.Y * by.Y);
+            P2 = new Vector2f(P2.X * by.X, P2.Y * by.Y);
+            Move(origin);
+        }
+
+        //help functions
+        static private int ipart(double x) { return (int)x; }
+
+        static private int round(double x) { return ipart(x + 0.5); }
+
+        static private float fpart(float x)
+        {
+            if (x < 0) return 1 - (float)(x - Math.Floor(x));
+            return (float)(x - Math.Floor(x));
+        }
+
+        static private float rfpart(float x)
+        {
+            return 1 - fpart(x);
+        }
+
+        static private void swap(ref float o1, ref float o2)
+        {
+            float tmp = o1;
+            o1 = o2;
+            o2 = tmp;
+        }
+
+        private void SetPixel(RenderTarget target, int x, int y, Color color)
+        {
+            target.Draw(new Vertex[] { new Vertex(new Vector2f(x, y), color)}, PrimitiveType.Points);
+        }
+        public void Draw(RenderTarget target, RenderStates states)
         {
             switch (Options.Instance.LineDrawingAlgorithm)
             {
                 case LineDrawingAlgorithms.Przyrostowy:
 
-                    double m;
+                    float m;
                     if (P2.X - P1.X != 0) m = (P2.Y - P1.Y) / (P2.X - P1.X);
                     else m = P2.Y - P1.Y;
-
+                    Color.A = 255;
                     if (Math.Abs(m) >= 1)
                     {
-                        Vec2d start = P1.Y < P2.Y ? P1 : P2;
-                        Vec2d end = P1.Y >= P2.Y ? P1 : P2;
+                        Vector2f start = P1.Y < P2.Y ? P1 : P2;
+                        Vector2f end = P1.Y >= P2.Y ? P1 : P2;
 
-                        double x = start.X;
-                        for (double y = start.Y; y <= end.Y; y++)
+                        float x = start.X;
+                        for (float y = start.Y; y <= end.Y; y++)
                         {
-                            SetPixel(g, (int)Math.Round(x), Convert.ToInt32(y), Color.Black);
+                            SetPixel(target, (int)Math.Round(x), Convert.ToInt32(y), Color);
                             x += (P2.X - P1.X != 0) ? 1 / m : 0;
                         }
                     }
                     else
                     {
-                        Vec2d start = P1.X < P2.X ? P1 : P2;
-                        Vec2d end = P1.X >= P2.X ? P1 : P2;
+                        Vector2f start = P1.X < P2.X ? P1 : P2;
+                        Vector2f end = P1.X >= P2.X ? P1 : P2;
 
-                        double y = start.Y;
-                        for (double x = start.X; x <= end.X; x++)
+                        float y = start.Y;
+                        for (float x = start.X; x <= end.X; x++)
                         {
-                            SetPixel(g, Convert.ToInt32(x), (int)Math.Round(y), Color.Black);
+                            SetPixel(target, Convert.ToInt32(x), (int)Math.Round(y), Color);
                             y += m;
                         }
                     }
                     break;
                 case LineDrawingAlgorithms.Wu:
-                    
-                    double x0 = P1.X;
-                    double x1 = P2.X;
-                    double y0 = P1.Y;
-                    double y1 = P2.Y;
 
-
-
-                    //start of algorithm
+                    float x0 = P1.X;
+                    float x1 = P2.X;
+                    float y0 = P1.Y;
+                    float y1 = P2.Y;
                     bool steep = Math.Abs(y1 - y0) > Math.Abs(x1 - x0);
+
+                    // swap the co-ordinates if slope > 1 or we 
+                    // draw backwards 
                     if (steep)
                     {
                         swap(ref x0, ref y0);
@@ -74,128 +125,40 @@ namespace GK_rysowanie_odcinków
                         swap(ref y0, ref y1);
                     }
 
-                    double dx = x1 - x0;
-                    double dy = y1 - y0;
-                    double gradient = dx == 0 ? 1 : dy / dx;
+                    //compute the slope 
+                    float dx = x1 - x0;
+                    float dy = y1 - y0;
+                    float gradient = dx == 0 ? 1 : dy / dx;
 
+                    int xpxl1 = ipart(x0);
+                    int xpxl2 = ipart(x1);
+                    float intersectY = y0;
 
-                    //start point
-                    int xEnd = round(x0);
-                    double yEnd = y0 + gradient * (xEnd - x0);
-                    double xGap = rfpart(x0 + 0.5);
-                    int xPixel1 = xEnd;
-                    int yPixel1 = ipart(yEnd);
-
-
-                    Color c1 = Color.FromArgb((int)(rfpart(yEnd) * xGap * 255), Color);
-                    Color c2 = Color.FromArgb((int)(fpart(yEnd) * xGap * 255), Color);
+                    // main loop 
                     if (steep)
                     {
-                        SetPixel(g, yPixel1, xPixel1, c1);
-                        SetPixel(g, yPixel1 + 1, xPixel1, c2);
-                    }
-                    else
-                    {
-                        SetPixel(g, xPixel1, yPixel1, c1);
-                        SetPixel(g, xPixel1, yPixel1 + 1, c2);
-                    }
-                    double intery = yEnd + gradient;
-
-                    //end point
-                    xEnd = round(x1);
-                    yEnd = y1 + gradient * (xEnd - x1);
-                    xGap = fpart(x1 + 0.5);
-                    int xPixel2 = xEnd;
-                    int yPixel2 = ipart(yEnd);
-                    
-
-                    c1 = Color.FromArgb((int)(rfpart(yEnd) * xGap * 255), Color);
-                    c2 = Color.FromArgb((int)(fpart(yEnd) * xGap * 255), Color);
-                    if (steep)
-                    {
-                        SetPixel(g, yPixel2, xPixel2, c1);
-                        SetPixel(g, yPixel2 + 1, xPixel2, c2);
-                    }
-                    else
-                    {
-                        SetPixel(g, xPixel2, yPixel2, c1);
-                        SetPixel(g, xPixel2, yPixel2 + 1, c2);
-                    }
-
-
-                    //between
-                    if (steep)
-                    {
-                        for (int x = (xPixel1 + 1); x <= xPixel2 - 1; x++)
+                        for (int x = xpxl1; x <= xpxl2; x++)
                         {
-                            c1 = Color.FromArgb((int)(rfpart(intery) * 255), Color);
-                            c2 = Color.FromArgb((int)(fpart(intery) * 255), Color);
-                            SetPixel(g, ipart(intery), x, c1);
-                            SetPixel(g, ipart(intery) + 1, x, c2);
-                            intery += gradient;
+                            Color.A = (byte)(rfpart(intersectY)*255);
+                            SetPixel(target, ipart(intersectY), x, Color);
+                            Color.A = (byte)(fpart(intersectY) * 255);
+                            SetPixel(target, ipart(intersectY) + 1, x, Color);
+                            intersectY += gradient;
                         }
                     }
                     else
                     {
-                        for (int x = (xPixel1 + 1); x <= xPixel2 - 1; x++)
+                        for (int x = xpxl1; x <= xpxl2; x++)
                         {
-                            c1 = Color.FromArgb((int)(rfpart(intery) * 255), Color);
-                            c2 = Color.FromArgb((int)(fpart(intery) * 255), Color);
-                            SetPixel(g, x, ipart(intery), c1);
-                            SetPixel(g, x, ipart(intery) + 1, c2);
-                            intery += gradient;
+                            Color.A = (byte)(rfpart(intersectY) * 255);
+                            SetPixel(target, x, ipart(intersectY), Color);
+                            Color.A = (byte)(fpart(intersectY) * 255);
+                            SetPixel(target, x, ipart(intersectY) + 1, Color);
+                            intersectY += gradient;
                         }
                     }
                     break;
             }
-
         }
-
-        public void Move(Vec2d by)
-        {
-            P1.Move(by);
-            P2.Move(by);
-        }
-
-        public void Rotate(double angle, Vec2d origin)
-        {
-            P1.Rotate(angle, origin);
-            P2.Rotate(angle, origin);
-        }
-
-        public void Scale(Vec2d by, Vec2d origin)
-        {
-            P1.Scale(by, origin);
-            P2.Scale(by, origin);
-        }
-
-        private void SetPixel(Graphics g, int x, int y, Color color)
-        {
-            Brush.Color = color;
-            g.FillRectangle(Brush, x, y, 1, 1);
-        }
-        //help functions
-        static private int ipart(double x) { return (int)x; }
-
-        static private int round(double x) { return ipart(x + 0.5); }
-
-        static private double fpart(double x)
-        {
-            if (x < 0) return 1 - (x - Math.Floor(x));
-            return (x - Math.Floor(x));
-        }
-
-        static private double rfpart(double x)
-        {
-            return 1 - fpart(x);
-        }
-
-        static private void swap(ref double o1, ref double o2)
-        {
-            double tmp = o1;
-            o1 = o2;
-            o2 = tmp;
-        }
-
     }
 }
